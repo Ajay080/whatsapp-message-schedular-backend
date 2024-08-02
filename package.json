@@ -4,7 +4,7 @@
   "description": "",
   "main": "schedule.js",
   "scripts": {
-    "start": "node schedule.js",
+    "start": "node src/schedule.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
