@@ -36,8 +36,11 @@ app.post('/api/schedule', (req, res) => {
   const id = uuidv4();  // Use uuidv4 to generate the unique ID
   const [hour, minute] = time.split(':').map(Number);
   
+  console.log(`Scheduling message for ${phone} at ${hour}:${minute}`);
+  
   // Schedule new job
   const job = schedule.scheduleJob({ hour, minute }, function() {
+    console.log(`Job triggered for message: ${phone}`);
     exec(`python send_message.py ${phone} "${message}"`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error executing script: ${error.message}`);
@@ -88,6 +91,7 @@ app.put('/api/messages/:id', (req, res) => {
     // Schedule new job with updated details
     const [hour, minute] = time.split(':').map(Number);
     const newJob = schedule.scheduleJob({ hour, minute }, function() {
+      console.log(`Job triggered for updated message: ${phone}`);
       exec(`python send_message.py ${phone} "${message}"`, (error, stdout, stderr) => {
         if (error) {
           console.error(`Error executing script: ${error.message}`);
