@@ -41,7 +41,7 @@ app.post('/api/schedule', (req, res) => {
   // Schedule new job
   const job = schedule.scheduleJob({ hour, minute }, function() {
     console.log(`Job triggered for message: ${phone}`);
-    exec(`python send_message.py ${phone} "${message}"`, (error, stdout, stderr) => {
+    exec(`python src/send_message.py ${phone} "${message}"`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error executing script: ${error.message}`);
         return;
@@ -92,7 +92,7 @@ app.put('/api/messages/:id', (req, res) => {
     const [hour, minute] = time.split(':').map(Number);
     const newJob = schedule.scheduleJob({ hour, minute }, function() {
       console.log(`Job triggered for updated message: ${phone}`);
-      exec(`python send_message.py ${phone} "${message}"`, (error, stdout, stderr) => {
+      exec(`python src/send_message.py ${phone} "${message}"`, (error, stdout, stderr) => {
         if (error) {
           console.error(`Error executing script: ${error.message}`);
           return;
