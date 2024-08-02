@@ -3,12 +3,12 @@ const bodyParser = require('body-parser');
 const schedule = require('node-schedule');
 const { exec } = require('child_process');
 const cors = require('cors');
-const { v4: uuidv4 } = require('uuid'); // Add this line to import uuid
+const { v4: uuidv4 } = require('uuid'); // Import uuid correctly
 const app = express();
 require('dotenv').config();
 
 const PORT = process.env.PORT || 9000;
-// Configure CORS to allow any origin
+
 const corsOptions = {
   origin: '*', // Allow requests from any origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -18,7 +18,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-let scheduledMessages = [];  // Store scheduled messages
+let scheduledMessages = [];
 
 // Convert scheduled message to a serializable format
 const serializeMessage = (msg) => ({
@@ -33,7 +33,7 @@ app.post('/api/schedule', (req, res) => {
   const { phone, message, time } = req.body;
 
   // Generate a unique ID for each message
-  const id = uuid.v4();
+  const id = uuidv4();  // Use uuidv4 to generate the unique ID
   const [hour, minute] = time.split(':').map(Number);
   
   // Schedule new job
