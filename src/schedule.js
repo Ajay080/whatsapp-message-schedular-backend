@@ -8,9 +8,15 @@ const app = express();
 require('dotenv').config();
 
 const PORT = process.env.PORT || 9000;
+// Configure CORS to allow any origin
+const corsOptions = {
+  origin: '*', // Allow requests from any origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+};
 
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(cors());
 
 let scheduledMessages = [];  // Store scheduled messages
 
